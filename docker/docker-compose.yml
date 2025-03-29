@@ -13,6 +13,7 @@ services:
       MYSQL_PASSWORD: omraj
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
 
 volumes:

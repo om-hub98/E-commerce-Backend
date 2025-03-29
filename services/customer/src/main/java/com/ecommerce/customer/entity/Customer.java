@@ -34,12 +34,11 @@ public class Customer {
     private String phoneNumber;
 
     // Many-to-Many relationship with Address
-    @Getter
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_address",
-            joinColumns = @JoinColumn(name = "customer_fk"),
-            inverseJoinColumns = @JoinColumn(name = "address_fk")
+            joinColumns = @JoinColumn(name = "customer_fk", referencedColumnName = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_fk", referencedColumnName = "address_id")
     )
-    private Set<Address> addresses = new HashSet<>();
+    private List<Address> addresses;
 }

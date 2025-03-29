@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -27,9 +28,9 @@ public class Address {
     private String city;
 
     @Column(name = "pincode")
-    private Long pincode;
+    private Integer pincode;
 
     // Bidirectional mapping
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "addresses")
-    private Set<Customer> customers = new HashSet<>();
+    private List<Customer> customers;
 }
