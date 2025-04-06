@@ -1,6 +1,20 @@
 version: '3.9'
 
 services:
+  mongodb:
+    image: mongo
+    container_name: mongodb_ecommerce_container
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: omraj
+      MONGO_INITDB_ROOT_PASSWORD: omrajpassword
+      MONGO_INITDB_DATABASE: product_db   # Set default database
+    volumes:
+      - mongodb_data:/data/db
+
+
   mysql:
     image: mysql:latest
     container_name: mysql_ecommerce_container
@@ -16,5 +30,8 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
 
+
 volumes:
+  mongodb_data:
   mysql_data:
+

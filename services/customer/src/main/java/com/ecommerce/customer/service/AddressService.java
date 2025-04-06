@@ -7,6 +7,7 @@ import com.ecommerce.customer.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -33,14 +34,21 @@ public class AddressService {
                 addressDTO.getCity(),addressDTO.getPincode());
     }
 
-    public Address findOrCreateAddress(Address existingCustomerAddress, AddressDTO addressDTO) {
-        if(addressDTO.getStreet().equals(existingCustomerAddress.getStreet())
-                && addressDTO.getCity().equals(existingCustomerAddress.getCity())
-                && addressDTO.getPincode().equals(existingCustomerAddress.getPincode())){
-            return existingCustomerAddress;
-        }else{
-            return saveAddress(addressDTO);
+    public Address updateAddress(List<Address> existingCustomerAddress, AddressDTO addressDTO) {
+        Address updatedAddress = new Address();
+        for(Address address : existingCustomerAddress){
+            if(addressDTO.getStreet().equals(address.getStreet())
+                    && addressDTO.getCity().equals(address.getCity())
+                    && addressDTO.getPincode().equals(address.getPincode())){
+                updatedAddress = address;
+            }else{
+                address.setCity(addressDTO.getCity());
+                address.setStreet(addressDTO.getStreet());
+                address.setPincode(addressDTO.getPincode());
+                updatedAddress = addressRepository.save(address);
+            }
         }
+        return updatedAddress;
     }
 
     public static Address convertToEntity(AddressDTO addressDTO){

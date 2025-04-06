@@ -70,15 +70,16 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException(String.format("Customer not found!!")));
 
         //check address is same or not in the updated dto from the already present address
-        List<Address> updatedAddresses = new ArrayList<>();
+        List<Address> updatedAddresses = null;
         if(!updateCustomerDTO.getAddresses().isEmpty()){
-            updatedAddresses = updateCustomerDTO.getAddresses().stream()
-                    .map(addressDTO -> addressService.findOrCreateAddress((Address) existingCustomer.getAddresses(), addressDTO))
-                    .collect(Collectors.toList());
+            updatedAddresses = new ArrayList<>();
+            for(AddressDTO updatedAddressDTO : updateCustomerDTO.getAddresses()) {
+                updatedAddresses.add(addressService.updateAddress(existingCustomer.getAddresses(), updatedAddressDTO));
+            }
         }else{
-            updatedAddresses = existingCustomer.getAddresses();
+            updatedAddresses = new ArrayList<>(existingCustomer.getAddresses());
         }
-        System.out.println("Updated Addressess : "+updatedAddresses);
+
         // Update customer details
         existingCustomer.setFirstname(updateCustomerDTO.getFirstName());
         existingCustomer.setLastname(updateCustomerDTO.getLastName());
