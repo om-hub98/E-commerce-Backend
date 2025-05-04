@@ -47,16 +47,41 @@ public class ProductService {
 
     public ProductResponse getByProductId(String productId){
         Optional<Product> product = Optional.ofNullable(productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException("Product Not found.")));
+                .orElseThrow(() -> new ProductNotFoundException("Product Not found with product Id: "+productId)));
 
         return mapToProductResponse(product.get());
     }
 
     public ProductResponse getByProductName(String productName){
         Optional<Product> product = Optional.ofNullable(productRepository.findByName(productName)
-                .orElseThrow(() -> new ProductNotFoundException("Product Not found.")));
+                .orElseThrow(() -> new ProductNotFoundException("Product Not found with product name: "+productName)));
 
         return mapToProductResponse(product.get());
+    }
+
+    public ProductResponse updateProductById(String productId, ProductRequest productRequest){
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setName(productRequest.getName());
+        product.setQuantity(productRequest.getQuantity());
+        product.setDescription(productRequest.getDescription());
+        product.setPrice(productRequest.getPrice());
+        productRepository.save(product);
+        return mapToProductResponse(product);
+    }
+
+    public String deleteProduct(String productId){
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        if(product != null){
+            productRepository.deleteById(productId);
+            return "Product Deletion Successfull!!";
+        }else {
+            return "No Product found, Deletion Unsuccessfull!!!";
+        }
+
     }
 
     private ProductResponse mapToProductResponse(Product product) {
@@ -78,4 +103,15 @@ public class ProductService {
 
         return product;
     }
+
+    private Product mapToEntity(ProductResponse productResponse) {
+        Product product = new Product();
+        product.setName(productResponse.getName());
+        product.setDescription(productResponse.getDescription());
+        product.setPrice(productResponse.getPrice());
+        product.setQuantity(productResponse.getQuantity());
+
+        return product;
+    }
+
 }
