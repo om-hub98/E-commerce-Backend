@@ -1,37 +1,53 @@
 version: '3.9'
 
 services:
-  mongodb:
+  mongodb-product:
     image: mongo
-    container_name: mongodb_ecommerce_container
+    container_name: mongodb_product_container
     restart: always
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: omraj
-      MONGO_INITDB_ROOT_PASSWORD: omrajpassword
-      MONGO_INITDB_DATABASE: product_db   # Set default database
+      MONGO_INITDB_DATABASE: ecomm_product_db
+      MONGO_INITDB_ROOT_USERNAME: product
+      MONGO_INITDB_ROOT_PASSWORD: productpass
     volumes:
-      - mongodb_data:/data/db
+      - product_mongodb_data:/data/db
 
 
-  mysql:
+  mysql-customer:
     image: mysql:latest
-    container_name: mysql_ecommerce_container
+    container_name: mysql_customer_container
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: ecommerce_db
-      MYSQL_USER: omraj
-      MYSQL_PASSWORD: omraj
+      MYSQL_DATABASE: ecomm_customer_db
+      MYSQL_USER: customer
+      MYSQL_PASSWORD: customerpass
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - customer_mysql_data:/var/lib/mysql
+      - ./init-files/customer-service/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
 
 
+  mysql-order:
+      image: mysql:latest
+      container_name: mysql_order_container
+      ports:
+        - "3307:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: rootpassword
+        MYSQL_DATABASE: ecomm_order_db
+        MYSQL_USER: order
+        MYSQL_PASSWORD: orderpass
+      volumes:
+        - order_mysql_data:/var/lib/mysql
+        - ./init-files/order-service/init.sql:/docker-entrypoint-initdb.d/init.sql
+      restart: always
+
 volumes:
-  mongodb_data:
-  mysql_data:
+  product_mongodb_data:
+  customer_mysql_data:
+  order_mysql_data:
 
