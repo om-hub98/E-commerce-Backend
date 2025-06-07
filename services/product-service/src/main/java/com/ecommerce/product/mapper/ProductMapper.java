@@ -1,10 +1,10 @@
-package com.ecommerce.product.helperFunction;
+package com.ecommerce.product.mapper;
 
 import com.ecommerce.product.dto.ProductRequest;
 import com.ecommerce.product.dto.ProductResponse;
 import com.ecommerce.product.entity.Product;
 
-public class ProductEntityConverstion {
+public class ProductMapper {
 
     public ProductResponse mapToProductResponse(Product product) {
         ProductResponse response = new ProductResponse();

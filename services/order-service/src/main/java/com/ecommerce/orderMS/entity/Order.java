@@ -25,11 +25,11 @@ public class Order {
     private Long customerId;
 
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @Column(name = "order_status")
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus orderStatus;
 
     @Column(name = "payment_id")
     private Long paymentId;

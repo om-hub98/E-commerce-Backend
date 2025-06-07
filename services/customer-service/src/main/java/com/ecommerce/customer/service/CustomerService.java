@@ -24,7 +24,7 @@ public class CustomerService {
     public CustomerDTO saveCustomerDetails(CustomerDTO request) {
         if (request != null) {
             Customer customer = new Customer();
-            customer.setCustomerId(request.getCustomerId());
+            //customer.setCustomerId(request.getCustomerId());
             customer.setFirstname(request.getFirstName());
             customer.setLastname(request.getLastName());
             customer.setEmail(request.getEmail());

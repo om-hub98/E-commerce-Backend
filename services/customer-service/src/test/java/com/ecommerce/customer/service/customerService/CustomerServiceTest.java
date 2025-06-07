@@ -46,7 +46,7 @@ public class CustomerServiceTest {
     Customer customer;
 
 
-    CustomerDTO CustomerDTO;
+    CustomerDTO customerDTO;
 
 
     Address address;
@@ -73,13 +73,12 @@ public class CustomerServiceTest {
 
         customer.setAddresses(addressList);
 
-        CustomerDTO=new CustomerDTO();
-        CustomerDTO = new CustomerDTO();
-        CustomerDTO.setCustomerId(1L);
-        CustomerDTO.setFirstName("Omraj");
-        CustomerDTO.setLastName("Pradhan");
-        CustomerDTO.setEmail("om@gmail.com");
-        CustomerDTO.setPhoneNumber("45335");
+        customerDTO = new CustomerDTO();
+        customerDTO.setCustomerId(1L);
+        customerDTO.setFirstName("Omraj");
+        customerDTO.setLastName("Pradhan");
+        customerDTO.setEmail("om@gmail.com");
+        customerDTO.setPhoneNumber("45335");
 
         AddressDTO addressDTO1 = new AddressDTO();
         addressDTO1.setAddressId(101L);
@@ -97,7 +96,7 @@ public class CustomerServiceTest {
         addressDTOList.add(addressDTO1);
         addressDTOList.add(addressDTO2);
 
-        CustomerDTO.setAddresses(addressDTOList);
+        customerDTO.setAddresses(addressDTOList);
     }
 
     @Test
@@ -112,7 +111,7 @@ public class CustomerServiceTest {
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
         //act : what is the result when this method is called of customer service
-        CustomerDTO result = customerService.saveCustomerDetails(CustomerDTO);
+        CustomerDTO result = customerService.saveCustomerDetails(customerDTO);
 
         //assert : assertion is done to verify that the result obtained from the act is same as expected.
         assertEquals(1L,result.getCustomerId());
@@ -136,12 +135,12 @@ public class CustomerServiceTest {
     @Test
     void find_Customer_By_Id_Test_Success(){
 
-        CustomerDTO CustomerDTO = new CustomerDTO();
-        CustomerDTO.setFirstName("Omraj");
-        CustomerDTO.setLastName("Pradhan");
-        CustomerDTO.setEmail("om@gmail.com");
-        CustomerDTO.setPhoneNumber("45335");
-        //CustomerDTO.setAddresses(addressDTOList);
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName("Omraj");
+        customerDTO.setLastName("Pradhan");
+        customerDTO.setEmail("om@gmail.com");
+        customerDTO.setPhoneNumber("45335");
+        //customerDTO.setAddresses(addressDTOList);
 
         // stubbing
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
