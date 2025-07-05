@@ -4,6 +4,7 @@ import com.ecommerce.orderMS.dto.*;
 import com.ecommerce.orderMS.entity.Order;
 import com.ecommerce.orderMS.entity.OrderItem;
 import com.ecommerce.orderMS.enums.OrderStatus;
+import com.ecommerce.orderMS.exception.InsufficentInventoryException;
 import com.ecommerce.orderMS.mapper.OrderMapper;
 import com.ecommerce.orderMS.repository.OrderItemRepository;
 import com.ecommerce.orderMS.repository.OrderRepository;
@@ -64,7 +65,7 @@ public class OrderService {
             if(dto.getQuantity() <= productDTO.getQuantity()){
                 item.setQuantity(dto.getQuantity());
             }else {
-                throw new RuntimeException("Quantity not available : "+productDTO.getName());
+                throw new InsufficentInventoryException("Quantity not available : "+productDTO.getName());
             }
 
             item.setOrder(order); // Set the back-reference
