@@ -46,8 +46,25 @@ services:
         - ./init-files/order-service/init.sql:/docker-entrypoint-initdb.d/init.sql
       restart: always
 
+
+  mysql-payment:
+      image: mysql:latest
+      container_name: mysql_payment_container
+      ports:
+        - "3308:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: rootpassword
+        MYSQL_DATABASE: ecomm_payment_db
+        MYSQL_USER: payment
+        MYSQL_PASSWORD: paymentpass
+      volumes:
+        - payment_mysql_data:/var/lib/mysql
+        - ./init-files/payment-service/init.sql:/docker-entrypoint-initdb.d/init.sql
+      restart: always
+
 volumes:
   product_mongodb_data:
   customer_mysql_data:
   order_mysql_data:
+  payment_mysql_data:
 
