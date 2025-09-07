@@ -1,6 +1,6 @@
 package com.ecommerce.payment_service.service;
 
-import com.ecommerce.payment_service.dto.PaymentTransactionDTO;
+import com.ecommerce.payment_service.dto.PaymentTransactionRequestDTO;
 import com.ecommerce.payment_service.dto.PaymentTransactionResponseDTO;
 import com.ecommerce.payment_service.entity.PaymentTransaction;
 import com.ecommerce.payment_service.repository.PaymentTransactionRepo;
@@ -15,7 +15,7 @@ public class PaymentTransactionService {
     @Autowired
     private PaymentTransactionRepo paymentTransactionRepo;
 
-    public PaymentTransactionResponseDTO recordPayment(PaymentTransactionDTO dto){
+    public PaymentTransactionResponseDTO savePaymentTransaction(PaymentTransactionRequestDTO dto){
         // Map DTO to Entity
         PaymentTransaction transaction = new PaymentTransaction();
         transaction.setOrderId(dto.getOrderId());
