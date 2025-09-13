@@ -23,6 +23,12 @@ public class OrderController {
         return ResponseEntity.ok(orderResponse);
     }
 
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable Long orderId ){
+        OrderResponseDTO order = orderService.getOrderById(orderId);
+        return ResponseEntity.ok(order);
+    }
+
     @GetMapping
     public ResponseEntity<List<OrderResponseDTO>> getOrder(){
         List<OrderResponseDTO> listOfOrderResponse = orderService.getAllOrderDetails();
@@ -30,7 +36,7 @@ public class OrderController {
     }
 
     @GetMapping("/customers/{customerId}")
-    public ResponseEntity<List<OrderResponseDTO>> getOrdersByCustomerId(    @PathVariable Long customerId){
+    public ResponseEntity<List<OrderResponseDTO>> getOrdersByCustomerId(@PathVariable Long customerId){
         List<OrderResponseDTO> orders = orderService.getOrdersByCustomerId(customerId);
         return ResponseEntity.ok(orders);
     }

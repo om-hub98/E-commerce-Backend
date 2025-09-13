@@ -75,6 +75,12 @@ public class OrderService {
         return OrderMapper.mapToOrderResponseDTO(orderRepository.save(order));
     }
 
+    public OrderResponseDTO getOrderById(Long orderId){
+        Order order = orderRepository.getById(orderId);
+        OrderResponseDTO orderResponse = OrderMapper.mapToOrderResponseDTO(order);
+        return orderResponse;
+    }
+
     public List<OrderResponseDTO> getAllOrderDetails(){
         List<Order> listOfOrders = orderRepository.findAll();
         List<OrderResponseDTO> listOfOrderResponse = listOfOrders.stream()
