@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "payment_transactions")
-public class PaymentTransaction {
+@Table(name = "payment")
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +21,6 @@ public class PaymentTransaction {
 
     @Column(name = "order_id", nullable = false)
     private Long orderId;
-
-    @Column(name = "customer_id", nullable = false)
-    private Long customerId;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
@@ -37,16 +34,11 @@ public class PaymentTransaction {
     @Column(nullable = false)
     private String status;
 
-    @Column(name = "transaction_reference")
-    private String transactionReference;
-
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    // === Lifecycle Callbacks ===
 
     @PrePersist
     protected void onCreate() {

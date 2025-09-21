@@ -1,6 +1,5 @@
-package com.ecommerce.orderMS.service;
+package com.ecommerce.orderMS.service.client;
 
-import com.ecommerce.orderMS.dto.CustomerDTO;
 import com.ecommerce.orderMS.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

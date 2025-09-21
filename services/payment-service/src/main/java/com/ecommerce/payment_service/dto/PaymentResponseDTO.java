@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PaymentTransactionRequestDTO {
+public class PaymentResponseDTO {
+
+    private Long id;
     private Long orderId;
-    private Long customerId;
     private BigDecimal amount;
     private String currency;
     private String paymentMethod;
     private String status;
-    private String transactionReference;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

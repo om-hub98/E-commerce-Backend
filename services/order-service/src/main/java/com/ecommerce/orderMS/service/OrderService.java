@@ -8,11 +8,12 @@ import com.ecommerce.orderMS.exception.InsufficentInventoryException;
 import com.ecommerce.orderMS.mapper.OrderMapper;
 import com.ecommerce.orderMS.repository.OrderItemRepository;
 import com.ecommerce.orderMS.repository.OrderRepository;
+import com.ecommerce.orderMS.service.client.CustomerServiceClient;
+import com.ecommerce.orderMS.service.client.ProductServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -6,14 +6,13 @@ import com.ecommerce.orderMS.dto.OrderRequestDTO;
 import com.ecommerce.orderMS.dto.OrderResponseDTO;
 import com.ecommerce.orderMS.entity.Order;
 import com.ecommerce.orderMS.entity.OrderItem;
-import com.ecommerce.orderMS.enums.OrderStatus;
 import com.ecommerce.orderMS.repository.OrderRepository;
+import com.ecommerce.orderMS.service.client.CustomerServiceClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;

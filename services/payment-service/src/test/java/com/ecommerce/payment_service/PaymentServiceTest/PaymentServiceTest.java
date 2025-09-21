@@ -1,10 +1,10 @@
 package com.ecommerce.payment_service.PaymentServiceTest;
 
-import com.ecommerce.payment_service.dto.PaymentTransactionRequestDTO;
-import com.ecommerce.payment_service.dto.PaymentTransactionResponseDTO;
-import com.ecommerce.payment_service.entity.PaymentTransaction;
-import com.ecommerce.payment_service.repository.PaymentTransactionRepo;
-import com.ecommerce.payment_service.service.PaymentTransactionService;
+import com.ecommerce.payment_service.dto.PaymentRequestDTO;
+import com.ecommerce.payment_service.dto.PaymentResponseDTO;
+import com.ecommerce.payment_service.entity.Payment;
+import com.ecommerce.payment_service.repository.PaymentRepo;
+import com.ecommerce.payment_service.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 
@@ -27,16 +25,16 @@ public class PaymentServiceTest {
 
 
     @InjectMocks
-    private PaymentTransactionService paymentTransactionService;
+    private PaymentService paymentService;
 
     @Mock
-    private PaymentTransactionRepo paymentTransactionRepo;
+    private PaymentRepo paymentRepo;
 
     @Mock
-    PaymentTransactionRequestDTO requestDTO;
+    PaymentRequestDTO requestDTO;
 
     @Mock
-    PaymentTransaction mockEntity;
+    Payment mockEntity;
 
 
     @BeforeEach
@@ -52,32 +50,28 @@ public class PaymentServiceTest {
 
         // mock Request DTO
         requestDTO.setOrderId(orderId);
-        requestDTO.setCustomerId(customerId);
         requestDTO.setAmount(amount);
         requestDTO.setCurrency(currency);
         requestDTO.setPaymentMethod(paymentMethod);
         requestDTO.setStatus(status);
-        requestDTO.setTransactionReference(transactionReference);
 
         // Mock entity
         mockEntity.setId(1L);
         mockEntity.setOrderId(orderId);
-        mockEntity.setCustomerId(customerId);
         mockEntity.setAmount(amount);
         mockEntity.setCurrency(currency);
         mockEntity.setPaymentMethod(paymentMethod);
         mockEntity.setStatus(status);
-        mockEntity.setTransactionReference(transactionReference);
     }
 
     @Test
     void testSavePaymentTransaction(){
 
         // mock repository behaviour
-        Mockito.when(paymentTransactionRepo.save(any(PaymentTransaction.class))).thenReturn(mockEntity);
+        Mockito.when(paymentRepo.save(any(Payment.class))).thenReturn(mockEntity);
 
         // Act
-        PaymentTransactionResponseDTO response = paymentTransactionService.savePaymentTransaction(requestDTO);
+        PaymentResponseDTO response = paymentService.savePaymentTransaction(requestDTO);
 
         // Assert
        // assertEquals(response.getOrderId(), 109L);
@@ -85,6 +79,6 @@ public class PaymentServiceTest {
         assertEquals("INITIATED",response.getStatus());
 
         //verify repository call => based on the number of call it made
-        verify(paymentTransactionRepo, times(1)).save(any(PaymentTransaction.class));
+        verify(paymentRepo, times(1)).save(any(Payment.class));
     }
 }

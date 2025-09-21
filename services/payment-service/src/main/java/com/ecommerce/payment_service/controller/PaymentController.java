@@ -1,8 +1,8 @@
 package com.ecommerce.payment_service.controller;
 
-import com.ecommerce.payment_service.dto.PaymentTransactionRequestDTO;
-import com.ecommerce.payment_service.dto.PaymentTransactionResponseDTO;
-import com.ecommerce.payment_service.service.PaymentTransactionService;
+import com.ecommerce.payment_service.dto.PaymentRequestDTO;
+import com.ecommerce.payment_service.dto.PaymentResponseDTO;
+import com.ecommerce.payment_service.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/payment")
-public class PaymentTransactionController {
+public class PaymentController {
 
     @Autowired
-    private PaymentTransactionService paymentTransactionService;
+    private PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<PaymentTransactionResponseDTO> recordPayment(@RequestBody PaymentTransactionRequestDTO dto) {
-        PaymentTransactionResponseDTO recorded = paymentTransactionService.savePaymentTransaction(dto);
+    public ResponseEntity<PaymentResponseDTO> savePayment(@RequestBody PaymentRequestDTO dto) {
+        PaymentResponseDTO recorded = paymentService.savePaymentTransaction(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(recorded);
     }
 }
